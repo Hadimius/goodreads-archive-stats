@@ -1,6 +1,6 @@
-name:                books
+name:                goodreads-archive-stats
 version:             0.1.0.0
-github:              "gutjuri/books"
+github:              "gutjuri/goodreads-archive-stats"
 license:             BSD3
 author:              "Juri Dispan"
 maintainer:          "juri.dispan@posteo.de"
@@ -17,7 +17,7 @@ extra-source-files:
 # To avoid duplicated efforts in documentation and dealing with the
 # complications of embedding Haddock markup inside cabal files, it is
 # common to point users to the README.md file.
-description:         Please see the README on GitHub at <https://github.com/githubuser/books#readme>
+description:         Please see the README on GitHub at <https://github.com/gutjuri/goodreads-archive-stats#readme>
 
 dependencies:
 - base >= 4.7 && < 5
@@ -25,12 +25,13 @@ dependencies:
 - text
 - vector
 - bytestring
+- unordered-containers
 
 library:
   source-dirs: src
 
 executables:
-  books-exe:
+  goodreads-archive-stats:
     main:                Main.hs
     source-dirs:         app
     ghc-options:
@@ -38,10 +39,10 @@ executables:
     - -rtsopts
     - -with-rtsopts=-N
     dependencies:
-    - books
+    - goodreads-archive-stats
 
 tests:
-  books-test:
+  goodreads-archive-stats-test:
     main:                Spec.hs
     source-dirs:         test
     ghc-options:
@@ -49,4 +50,4 @@ tests:
     - -rtsopts
     - -with-rtsopts=-N
     dependencies:
-    - books
+    - goodreads-archive-stats

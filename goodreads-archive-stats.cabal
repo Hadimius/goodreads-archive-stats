@@ -4,13 +4,13 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: bb3635efbd8690e5d319d258a01da06add23a46ffc8d116c664dddff09d13964
+-- hash: fa2100d06b0513dea0ff9c03ef78a394a4fda40ca62b20d732bab1d4fc29f16f
 
-name:           books
+name:           goodreads-archive-stats
 version:        0.1.0.0
-description:    Please see the README on GitHub at <https://github.com/githubuser/books#readme>
-homepage:       https://github.com/gutjuri/books#readme
-bug-reports:    https://github.com/gutjuri/books/issues
+description:    Please see the README on GitHub at <https://github.com/gutjuri/goodreads-archive-stats#readme>
+homepage:       https://github.com/gutjuri/goodreads-archive-stats#readme
+bug-reports:    https://github.com/gutjuri/goodreads-archive-stats/issues
 author:         Juri Dispan
 maintainer:     juri.dispan@posteo.de
 copyright:      2020 Juri Dispan
@@ -23,13 +23,13 @@ extra-source-files:
 
 source-repository head
   type: git
-  location: https://github.com/gutjuri/books
+  location: https://github.com/gutjuri/goodreads-archive-stats
 
 library
   exposed-modules:
       Book
   other-modules:
-      Paths_books
+      Paths_goodreads_archive_stats
   hs-source-dirs:
       src
   build-depends:
@@ -37,38 +37,41 @@ library
     , bytestring
     , cassava
     , text
+    , unordered-containers
     , vector
   default-language: Haskell2010
 
-executable books-exe
+executable goodreads-archive-stats
   main-is: Main.hs
   other-modules:
-      Paths_books
+      Paths_goodreads_archive_stats
   hs-source-dirs:
       app
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.7 && <5
-    , books
     , bytestring
     , cassava
+    , goodreads-archive-stats
     , text
+    , unordered-containers
     , vector
   default-language: Haskell2010
 
-test-suite books-test
+test-suite goodreads-archive-stats-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
-      Paths_books
+      Paths_goodreads_archive_stats
   hs-source-dirs:
       test
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.7 && <5
-    , books
     , bytestring
     , cassava
+    , goodreads-archive-stats
     , text
+    , unordered-containers
     , vector
   default-language: Haskell2010
