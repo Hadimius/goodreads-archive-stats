@@ -22,9 +22,9 @@ where
 
 import qualified Data.Text                     as T
 import           Data.Text                      ( Text )
-import           Data.Csv
+import           Data.Csv                       ( FromRecord )
 
-import           GHC.Generics
+import           GHC.Generics                   ( Generic )
 
 data Book = Book
  { bookId :: Maybe Integer
@@ -34,7 +34,7 @@ data Book = Book
   , additionalAuthors :: Text
   , isbn :: Text
   , isbn13 :: Text
-  , rating :: Maybe Int
+  , myRating :: Maybe Int
   , avgRating :: Maybe Double
   , publisher :: Text
   , binding :: Text
@@ -43,8 +43,21 @@ data Book = Book
   , originalYearPublished :: Maybe Int
   , dateRead :: Text
   , dateAdded :: Text
-  , exclShelf :: Text
-  , review :: Text
+  , bookshelves :: Text
+  , bookshelvesWithPos :: Text
+  , exclusiveShelf :: Text
+  , myReview :: Text
+  , spoiler :: Text
+  , privateNotes :: Text
+  , readCount :: Int
+  , recommendedFor :: Text
+  , recommendedBy :: Text
+  , ownedCopies  :: Int
+  , originalPurchaseDate :: Text
+  , originalPurchaseLocation :: Text
+  , condition :: Text
+  , conditionDescription :: Text
+  , bcid :: Text
 } deriving (Show, Generic)
 
 instance FromRecord Book
