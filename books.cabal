@@ -4,16 +4,16 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 257803cdc387cba5c4a81327603902abf6c11753660b4065a802d544392a1307
+-- hash: bb3635efbd8690e5d319d258a01da06add23a46ffc8d116c664dddff09d13964
 
 name:           books
 version:        0.1.0.0
 description:    Please see the README on GitHub at <https://github.com/githubuser/books#readme>
-homepage:       https://github.com/githubuser/books#readme
-bug-reports:    https://github.com/githubuser/books/issues
-author:         Author name here
-maintainer:     example@example.com
-copyright:      2020 Author name here
+homepage:       https://github.com/gutjuri/books#readme
+bug-reports:    https://github.com/gutjuri/books/issues
+author:         Juri Dispan
+maintainer:     juri.dispan@posteo.de
+copyright:      2020 Juri Dispan
 license:        BSD3
 license-file:   LICENSE
 build-type:     Simple
@@ -23,7 +23,7 @@ extra-source-files:
 
 source-repository head
   type: git
-  location: https://github.com/githubuser/books
+  location: https://github.com/gutjuri/books
 
 library
   exposed-modules:
