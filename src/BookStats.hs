@@ -15,19 +15,32 @@
 
 {-# LANGUAGE OverloadedStrings #-}
 
-module Main where
+module BookStats where
 
 import           Book
-import           BookStats
-import           Data.Csv
-import qualified Data.Vector                   as V
-import qualified Data.Text                     as T
-import qualified Data.ByteString.Lazy          as BS
 
-main :: IO ()
-main = do
-  csvData <- BS.getContents
-  case decode HasHeader csvData of
-    Left  err -> putStrLn err
-    Right v   -> print $ totalPages $ booksStat
-      (filter (\b -> exclusiveShelf b == "read") $ V.toList v)
+import           Data.Text                      ( Text )
+import           Data.Maybe
+import           Data.List
+import           Data.Function
+
+import           Control.Monad
+
+data BooksStat = BooksStat {
+    totalPages :: Int
+  , ratedBest :: [Text]
+  , mostReadAuthors :: [Text]
+} 
+
+booksStat :: [Book] -> BooksStat
+booksStat bks = BooksStat (sum $ map (fromMaybe 0 . nrPages) bks)
+                          (getRatedBest bks)
+                          (getMostReadAuthors bks)
+
+getRatedBest :: [Book] -> [Text]
+getRatedBest =
+  map title . sortBy (compare `on` (myRating >=> \r -> return (5 - r)))
+
+getMostReadAuthors :: [Book] -> [Text]
+getMostReadAuthors = undefined
+

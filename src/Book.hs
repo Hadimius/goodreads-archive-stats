@@ -21,18 +21,14 @@ module Book
   )
 where
 
-
-import Prelude hiding (lookup)
-import qualified Data.Text                     as T
+import           Prelude                 hiding ( lookup )
 import           Data.Text                      ( Text )
-import           Data.Text.Encoding
-import           Data.Csv                       
 import qualified Data.HashMap.Strict           as H
-import qualified Data.ByteString               as BS
-import           Data.Functor                   ( (<&>) )
-import           Data.Function                  ( (&) )
+import           Data.Csv                       ( lookup
+                                                , FromNamedRecord(..)
+                                                , FromRecord
+                                                )
 
-import           Text.Read                      ( readMaybe )
 
 import           GHC.Generics                   ( Generic )
 
@@ -41,45 +37,42 @@ data Book = Book
   , title :: Text
   , author :: Text
   , authorLF :: Text
-  , additionalAuthors :: Maybe Text
-  , isbn :: Maybe Text
-  , isbn13 :: Maybe Text
+  , additionalAuthors :: Text
+  , isbn :: Text
+  , isbn13 :: Text
   , myRating :: Maybe Int
   , avgRating :: Maybe Double
-  , publisher :: Maybe Text
-  , binding :: Maybe Text
+  , publisher :: Text
+  , binding :: Text
   , nrPages :: Maybe Int
-  , yearPublished :: Maybe Int
-  , originalYearPublished :: Maybe Int
-  , dateRead :: Maybe Text
-  , dateAdded :: Maybe Text
-  , bookshelves :: Maybe Text
-  , bookshelvesWithPos :: Maybe Text
-  , exclusiveShelf :: Maybe Text
-  , myReview :: Maybe Text
-  , spoiler :: Maybe Text
-  , privateNotes :: Maybe Text
+  , yearPublished :: Maybe Int -- TODO Use proper date type
+  , originalYearPublished :: Maybe Int -- TODO Use proper date type
+  , dateRead :: Text -- TODO Use proper date type
+  , dateAdded :: Text -- TODO Use proper date type
+  , bookshelves :: Text
+  , bookshelvesWithPos :: Text
+  , exclusiveShelf :: Text -- TODO Use proper shelve type
+  , myReview :: Text
+  , spoiler :: Text -- TODO Is this a bool?
+  , privateNotes :: Text
   , readCount :: Maybe Int
-  , recommendedFor :: Maybe Text
-  , recommendedBy :: Maybe Text
-  , ownedCopies  :: Maybe Int
-  , originalPurchaseDate :: Maybe Text
-  , originalPurchaseLocation :: Maybe Text
-  , condition :: Maybe Text
-  , conditionDescription :: Maybe Text
-  , bcid :: Maybe Text
+  , recommendedFor :: Text
+  , recommendedBy :: Text
+  , ownedCopies :: Maybe Int
+  , originalPurchaseDate :: Text -- TODO Use proper date type
+  , originalPurchaseLocation :: Text
+  , condition :: Text
+  , conditionDescription :: Text
+  , bcid :: Text -- TODO What's a BCID?
 } deriving (Show, Generic)
 
---unlessEquals :: Eq a => a -> Maybe a -> Maybe a
---unlessEquals x ma = ma >>= if ma == Just x then Nothing else ma
+----
+-- Deserialisation from CSV
+----
 
+instance FromRecord Book
 
---lookupTextKey :: BS.ByteString -> NamedRecord -> Parser (Maybe Text)
---lookupTextKey k m = H.lookup k m <&> decodeUtf8 & unlessEquals ""
-
-lookupNumKey :: Read a => BS.ByteString -> NamedRecord -> Maybe a
-lookupNumKey k m = H.lookup k m <&> (T.unpack . decodeUtf8) >>= readMaybe
-
+-- deprecated until someone wants to use the decodeByName method:
 instance FromNamedRecord Book where
   parseNamedRecord m
     | not
@@ -92,33 +85,31 @@ instance FromNamedRecord Book where
       <$> lookup m "Book Id"
       <*> lookup m "Title"
       <*> lookup m "Author"
-      <*> m
-      H.! "Author l-f"
-      <*> lookupTextKey "Additional Authors" m
-      <*> lookupTextKey "ISBN"               m
-      <*> lookupTextKey "ISBN13"             m
-      <*> lookupNumKey "My Rating"
-      <*> lookupNumKey "Average Rating"
-      <*> lookupTextKey "Publisher" m
-      <*> lookupTextKey "Binding"   m
-      <*> lookupNumKey "Number of Pages"
-      <*> lookupNumKey "Year Published"
-      <*> lookupNumKey "Original Publication Year"
-      <*> lookupTextKey "Date Read"                  m
-      <*> lookupTextKey "Date Added"                 m
-      <*> lookupTextKey "Bookshelves"                m
-      <*> lookupTextKey "Bookshelves with positions" m
-      <*> lookupTextKey "Exclusive Shelf"            m
-      <*> lookupTextKey "My Review"                  m
-      <*> lookupTextKey "Spoiler"                    m
-      <*> lookupTextKey "Private Notes"              m
-      <*> lookupNumKey "Read Count"
-      <*> lookupTextKey "Recommended For" m
-      <*> lookupTextKey "Recommended By"  m
-      <*> lookupNumKey "Owned Copies"
-      <*> lookupTextKey "Original Purchase Date"     m
-      <*> lookupTextKey "Original Purchase Location" m
-      <*> lookupTextKey "Condition"                  m
-      <*> lookupTextKey "Condition Description"      m
-      <*> lookupTextKey "BCID"                       m
-
+      <*> lookup m "Author l-f"
+      <*> lookup m "Additional Authors"
+      <*> lookup m "ISBN"
+      <*> lookup m "ISBN13"
+      <*> lookup m "My Rating"
+      <*> lookup m "Average Rating"
+      <*> lookup m "Publisher"
+      <*> lookup m "Binding"
+      <*> lookup m "Number of Pages"
+      <*> lookup m "Year Published"
+      <*> lookup m "Original Publication Year"
+      <*> lookup m "Date Read"
+      <*> lookup m "Date Added"
+      <*> lookup m "Bookshelves"
+      <*> lookup m "Bookshelves with positions"
+      <*> lookup m "Exclusive Shelf"
+      <*> lookup m "My Review"
+      <*> lookup m "Spoiler"
+      <*> lookup m "Private Notes"
+      <*> lookup m "Read Count"
+      <*> lookup m "Recommended For"
+      <*> lookup m "Recommended By"
+      <*> lookup m "Owned Copies"
+      <*> lookup m "Original Purchase Date"
+      <*> lookup m "Original Purchase Location"
+      <*> lookup m "Condition"
+      <*> lookup m "Condition Description"
+      <*> lookup m "BCID"

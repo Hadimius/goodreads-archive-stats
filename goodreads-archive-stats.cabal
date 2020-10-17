@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: fa2100d06b0513dea0ff9c03ef78a394a4fda40ca62b20d732bab1d4fc29f16f
+-- hash: f2e29aa3328e58c9d7ae5931a00b1828c2d0c9a3c44adf7c3560460817a721eb
 
 name:           goodreads-archive-stats
 version:        0.1.0.0
@@ -28,6 +28,7 @@ source-repository head
 library
   exposed-modules:
       Book
+      BookStats
   other-modules:
       Paths_goodreads_archive_stats
   hs-source-dirs:
