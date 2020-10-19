@@ -4,9 +4,9 @@ Computes statistics over your exported goodreads book library.
 
 ## Why
 
-Goodreads is a very useful platform to track which books you read, which ones you plan to read, how much you read and so on. Its usefulness for tracking might arise from the fact that it is owned by Amazon, a company notorious for tracking and monitoring its users.
+Goodreads is a very useful platform to track what books you read, which ones you plan to read, how much you read and so on. Its usefulness for tracking might arise from the fact that it is owned by Amazon, a company notorious for tracking and monitoring its users.
 
-If you don't want to be tracked by Amazon via goodreads or just don't use Amazon products ((a justified position)[https://stallman.org/amazon.html]) but still want to track your reading habits, this programme is for you. It works with exported goodreads libraries.
+If you don't want to be tracked by Amazon via goodreads or just don't use Amazon products ([a justified position](https://stallman.org/amazon.html)) but still want to track your reading habits, this programme is for you. It works with exported goodreads libraries.
 
 ## Installation
 
@@ -38,4 +38,4 @@ In the command line:
 
 ## Maintaining your library without goodreads
 
-You can track your reading habits even without goodreads. The exported csv file can be edited in common spreadsheet calculation programmes such as (LibreOffice Calc)[https://www.libreoffice.org/discover/calc/], Microsoft Excel and Google docs. Adding new books this way takes a little more effort than using the goodreads interface, but that's the price you gotta pay for freedom. It probably doesn't even take much longer, considering goodread's slowness.
+You can track your reading habits even without goodreads. The exported csv file can be edited in common spreadsheet calculation programmes such as [LibreOffice Calc](https://www.libreoffice.org/discover/calc/), Microsoft Excel and Google docs. Adding new books this way takes a little more effort than using the goodreads interface, but that's the price you gotta pay for freedom. It probably doesn't even take much longer, considering goodread's slowness.
