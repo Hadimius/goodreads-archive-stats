@@ -8,6 +8,12 @@ Goodreads is a very useful platform to track what books you read, which ones you
 
 If you don't want to be tracked by Amazon via goodreads or just don't use Amazon products ([a justified position](https://stallman.org/amazon.html)) but still want to track your reading habits, this programme is for you. It works with exported goodreads libraries.
 
+### Features
+
+Currently supported features:
+
+- Reports on what you read each year, including the total number of books, the number of read pages, your highest-rated books and most-read authors.
+
 ## Installation
 
 ### Downloading the binary
