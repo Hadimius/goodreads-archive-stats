@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: f2e29aa3328e58c9d7ae5931a00b1828c2d0c9a3c44adf7c3560460817a721eb
+-- hash: 5dcf690245488b1f6bc8e0d508287ac47ad778c9d28fcc9f138b6c93ee157be6
 
 name:           goodreads-archive-stats
 version:        0.1.0.0
@@ -37,6 +37,7 @@ library
       base >=4.7 && <5
     , bytestring
     , cassava
+    , containers
     , text
     , unordered-containers
     , vector
@@ -53,6 +54,7 @@ executable goodreads-archive-stats
       base >=4.7 && <5
     , bytestring
     , cassava
+    , containers
     , goodreads-archive-stats
     , text
     , unordered-containers
@@ -71,6 +73,7 @@ test-suite goodreads-archive-stats-test
       base >=4.7 && <5
     , bytestring
     , cassava
+    , containers
     , goodreads-archive-stats
     , text
     , unordered-containers

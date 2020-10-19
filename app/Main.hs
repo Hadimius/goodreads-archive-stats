@@ -22,12 +22,32 @@ import           BookStats
 import           Data.Csv
 import qualified Data.Vector                   as V
 import qualified Data.Text                     as T
+import           Data.List
+import           Data.Bifunctor
 import qualified Data.ByteString.Lazy          as BS
+
+displayBookStat :: [Book] -> String
+displayBookStat bks = unlines
+  [ "Number of books: " ++ show (totalBooks bs)
+  , "Number of pages: " ++ show (totalPages bs)
+  , "Highest rated books: \n\t"
+    ++ T.unpack (T.intercalate "\n\t" (take 10 $ ratedBest bs))
+  , "Most frequent authors: \n\t"
+    ++ T.unpack (T.intercalate "\n\t" (take 5 $ mostReadAuthors bs))
+  ]
+  where bs = booksStat bks
+
+displayYearlyReadStats :: [Book] -> String
+displayYearlyReadStats =
+  intercalate "\n"
+    . map (\(yr, bs) -> T.unpack yr ++ "\n" ++ bs)
+    . map (second displayBookStat)
+    . groupByYear
+    . filter ((== "read") . exclusiveShelf)
 
 main :: IO ()
 main = do
   csvData <- BS.getContents
   case decode HasHeader csvData of
     Left  err -> putStrLn err
-    Right v   -> print $ totalPages $ booksStat
-      (filter (\b -> exclusiveShelf b == "read") $ V.toList v)
+    Right v   -> putStrLn $ displayYearlyReadStats $ V.toList v

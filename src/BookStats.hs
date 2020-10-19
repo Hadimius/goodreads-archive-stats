@@ -20,20 +20,24 @@ module BookStats where
 import           Book
 
 import           Data.Text                      ( Text )
+import qualified Data.Text                     as T
 import           Data.Maybe
 import           Data.List
 import           Data.Function
-
+import qualified Data.Map.Strict               as Map
+import           Data.Map.Strict                ( Map )
 import           Control.Monad
 
 data BooksStat = BooksStat {
-    totalPages :: Int
+    totalBooks :: Int
+  , totalPages :: Int
   , ratedBest :: [Text]
   , mostReadAuthors :: [Text]
-} 
+}
 
 booksStat :: [Book] -> BooksStat
-booksStat bks = BooksStat (sum $ map (fromMaybe 0 . nrPages) bks)
+booksStat bks = BooksStat (length bks)
+                          (sum $ map (fromMaybe 0 . nrPages) bks)
                           (getRatedBest bks)
                           (getMostReadAuthors bks)
 
@@ -42,5 +46,14 @@ getRatedBest =
   map title . sortBy (compare `on` (myRating >=> \r -> return (5 - r)))
 
 getMostReadAuthors :: [Book] -> [Text]
-getMostReadAuthors = undefined
+getMostReadAuthors =
+  map fst
+    . sortBy (compare `on` (negate . snd))
+    . Map.toList
+    . foldl' (\m b -> Map.insertWith (+) (author b) 1 m) Map.empty
 
+groupByYear :: [Book] -> [(Text, [Book])]
+groupByYear =
+  Map.toList
+    . foldl' (\m b -> Map.insertWith (++) (T.take 4 $ dateRead b) [b] m)
+             Map.empty
