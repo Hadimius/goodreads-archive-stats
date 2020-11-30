@@ -24,6 +24,7 @@ import qualified Data.Text                     as T
 import           Data.Maybe
 import           Data.List
 import           Data.Function
+import           Data.Functor
 import qualified Data.Map.Strict               as Map
 import           Data.Map.Strict                ( Map )
 import           Control.Monad
@@ -43,12 +44,22 @@ booksStat bks = BooksStat (length bks)
 
 getRatedBest :: [Book] -> [Text]
 getRatedBest =
-  map title . sortBy (compare `on` (myRating >=> \r -> return (5 - r)))
+  map
+      (\book ->
+        title book
+          <> " ("
+          <> fromMaybe "-" (myRating book <&> (T.pack . show))
+          <> "/5)"
+      )
+    . sortBy (flip compare `on` myRating)
 
 getMostReadAuthors :: [Book] -> [Text]
 getMostReadAuthors =
-  map fst
-    . sortBy (compare `on` (negate . snd))
+  map
+      (\(author', timesRead) ->
+        author' <> " (" <> T.pack (show timesRead) <> " books)"
+      )
+    . sortBy (flip compare `on` snd)
     . Map.toList
     . foldl' (\m b -> Map.insertWith (+) (author b) 1 m) Map.empty
 
